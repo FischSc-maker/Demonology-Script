@@ -7,11 +7,11 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 16 | Scripts: 2 | Modules: 0 | Tags: 0
+-- Instances: 17 | Scripts: 2 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk
-G2L["1"] = Instance.new("ScreenGui", game:GetService("CoreGui"));
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
 G2L["1"]["Name"] = [[habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk]];
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
 
@@ -137,9 +137,26 @@ G2L["f"] = Instance.new("LocalScript", G2L["3"]);
 G2L["f"]["Name"] = [[Main]];
 
 
+-- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.GRoom
+G2L["10"] = Instance.new("TextLabel", G2L["3"]);
+G2L["10"]["TextWrapped"] = true;
+G2L["10"]["BorderSizePixel"] = 0;
+G2L["10"]["TextSize"] = 14;
+G2L["10"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["10"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Italic);
+G2L["10"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["10"]["BackgroundTransparency"] = 1;
+G2L["10"]["RichText"] = true;
+G2L["10"]["Size"] = UDim2.new(0.46101, 0, 0.24139, 0);
+G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["10"]["Text"] = [[Ghost Room :]];
+G2L["10"]["Name"] = [[GRoom]];
+G2L["10"]["Position"] = UDim2.new(0.02132, 0, 0.66141, 0);
+
+
 -- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.UIDrag
-G2L["10"] = Instance.new("LocalScript", G2L["2"]);
-G2L["10"]["Name"] = [[UIDrag]];
+G2L["11"] = Instance.new("LocalScript", G2L["2"]);
+G2L["11"]["Name"] = [[UIDrag]];
 
 
 -- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.Main
@@ -156,12 +173,14 @@ local script = G2L["f"];
 	end
 	
 	local ghtype = workspace.Ghost:GetAttribute("GhostType")
+	local ghroom = workspace.Ghost:GetAttribute("FavoriteRoom")
 	
 	local fr = script.Parent
 	
 	local cls = fr.Close
 	local gesp = fr.GEsp
 	local gtype = fr.GType
+	local groom = fr.GRoom
 	
 	cls.MouseButton1Click:Connect(function() 
 		if workspace:FindFirstChild("Part") then
@@ -184,14 +203,116 @@ local script = G2L["f"];
 	end)
 	
 	gtype.Text = "Ghost Type : "..ghtype
+	groom.Text = "Ghost Room : "..ghroom
 	
+	local evidences = {}
+	
+	if ghtype == "Banshee" then
+		table.insert(evidences, "GhostOrb")
+		table.insert(evidences, "Handprints")
+		table.insert(evidences, "FreezingTemperatures")
+	end
+	
+	if ghtype == "Demon" then
+		table.insert(evidences, "EMFLevel5")
+		table.insert(evidences, "Handprints")
+		table.insert(evidences, "FreezingTemperatures")
+	end
+	
+	if ghtype == "Entity" then
+		table.insert(evidences, "SpiritBox")
+		table.insert(evidences, "Handprints")
+		table.insert(evidences, "LaserProjector")
+	end
+	
+	if ghtype == "Ghoul" then
+		table.insert(evidences, "SpiritBox")
+		table.insert(evidences, "GhostOrb")
+		table.insert(evidences, "FreezingTemperatures")
+	end
+	
+	if ghtype == "Leviathan" then
+		table.insert(evidences, "GhostWriting")
+		table.insert(evidences, "Handprints")
+		table.insert(evidences, "GhostOrb")
+	end
+	
+	if ghtype == "Nightmare" then
+		table.insert(evidences, "EMFLevel5")
+		table.insert(evidences, "SpiritBox")
+		table.insert(evidences, "GhostOrb")
+	end
+	
+	if ghtype == "Oni" then
+		table.insert(evidences, "LaserProjector")
+		table.insert(evidences, "SpiritBox")
+		table.insert(evidences, "FreezingTemperatures")
+	end
+	
+	if ghtype == "Phantom" then
+		table.insert(evidences, "EMFLevel5")
+		table.insert(evidences, "Handprints")
+		table.insert(evidences, "GhostOrb")
+	end
+	
+	if ghtype == "Revenant" then
+		table.insert(evidences, "GhostWriting")
+		table.insert(evidences, "EMFLevel5")
+		table.insert(evidences, "FreezingTemperatures")
+	end
+	
+	if ghtype == "Shadow" then
+		table.insert(evidences, "EMFLevel5")
+		table.insert(evidences, "GhostWriting")
+		table.insert(evidences, "LaserProjector")
+	end
+	
+	if ghtype == "Skinwalker" then
+		table.insert(evidences, "GhostWriting")
+		table.insert(evidences, "SpiritBox")
+		table.insert(evidences, "FreezingTemperatures")
+	end
+	
+	if ghtype == "Specter" then
+		table.insert(evidences, "EMFLevel5")
+		table.insert(evidences, "LaserProjector")
+		table.insert(evidences, "FreezingTemperatures")
+	end
+	
+	if ghtype == "Spirit" then
+		table.insert(evidences, "GhostWriting")
+		table.insert(evidences, "Handprints")
+		table.insert(evidences, "SpiritBox")
+	end
+	
+	if ghtype == "Umbra" then
+		table.insert(evidences, "GhostOrb")
+		table.insert(evidences, "Handprints")
+		table.insert(evidences, "LaserProjector")
+	end
+	
+	if ghtype == "Wendigo" then
+		table.insert(evidences, "GhostOrb")
+		table.insert(evidences, "GhostWriting")
+		table.insert(evidences, "LaserProjector")
+	end
+	
+	if ghtype == "Wraith" then
+		table.insert(evidences, "EMFLevel5")
+		table.insert(evidences, "SpiritBox")
+		table.insert(evidences, "LaserProjector")
+	end
+	
+	for i,v in evidences do
+		game:GetService("ReplicatedStorage").Events.EvidenceMarkedInJournal:FireServer(v)
+	end
 	
 	game:GetService("ReplicatedStorage").Events.EvidenceMarkedInJournal:FireServer(ghtype)
 end;
 task.spawn(C_f);
 -- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.UIDrag
-local function C_10()
-local script = G2L["10"];
+local function C_11()
+local script = G2L["11"];
 	-- Made by Real_IceyDev (@lceyDex) --
 	-- Simple UI dragger (PC Only/Any device that has a mouse) --
 	
@@ -230,6 +351,6 @@ local script = G2L["10"];
 		end
 	end)
 end;
-task.spawn(C_10);
+task.spawn(C_11);
 
 return G2L["1"], require;
