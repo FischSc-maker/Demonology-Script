@@ -7,7 +7,9 @@
  Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
--- Instances: 17 | Scripts: 2 | Modules: 0 | Tags: 0
+-- Copy all you want idc
+
+-- Instances: 24 | Scripts: 2 | Modules: 1 | Tags: 0
 local G2L = {};
 
 -- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk
@@ -57,7 +59,7 @@ G2L["6"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["6"]["BackgroundTransparency"] = 1;
 G2L["6"]["Size"] = UDim2.new(0.38138, 0, 0.10294, 0);
 G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["6"]["Text"] = [[Fer Modz - Demonology]];
+G2L["6"]["Text"] = [[Fer Modz - Demonology V5]];
 G2L["6"]["Name"] = [[Title]];
 
 
@@ -154,27 +156,109 @@ G2L["10"]["Name"] = [[GRoom]];
 G2L["10"]["Position"] = UDim2.new(0.02132, 0, 0.66141, 0);
 
 
+-- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.Modules
+G2L["11"] = Instance.new("Folder", G2L["3"]);
+G2L["11"]["Name"] = [[Modules]];
+
+
+-- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.Modules.warnmodule
+G2L["12"] = Instance.new("ModuleScript", G2L["11"]);
+G2L["12"]["Name"] = [[warnmodule]];
+
+
+-- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.Modules.Assets
+G2L["13"] = Instance.new("Folder", G2L["11"]);
+G2L["13"]["Name"] = [[Assets]];
+
+
+-- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.Modules.Assets.warning
+G2L["14"] = Instance.new("Frame", G2L["13"]);
+G2L["14"]["Visible"] = false;
+G2L["14"]["ZIndex"] = 555555555;
+G2L["14"]["BorderSizePixel"] = 0;
+G2L["14"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["14"]["Size"] = UDim2.new(0.36816, 0, 0.10235, 0);
+G2L["14"]["Position"] = UDim2.new(0.32067, 0, 0.35608, 0);
+G2L["14"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["14"]["Name"] = [[warning]];
+
+
+-- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.Modules.Assets.warning.UIStroke
+G2L["15"] = Instance.new("UIStroke", G2L["14"]);
+
+
+
+-- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.Modules.Assets.warning.UICorner
+G2L["16"] = Instance.new("UICorner", G2L["14"]);
+
+
+
+-- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.Modules.Assets.warning.warntext
+G2L["17"] = Instance.new("TextLabel", G2L["14"]);
+G2L["17"]["BorderSizePixel"] = 0;
+G2L["17"]["TextSize"] = 14;
+G2L["17"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["17"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal);
+G2L["17"]["TextColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["17"]["BackgroundTransparency"] = 1;
+G2L["17"]["Size"] = UDim2.new(1, 0, 1, 0);
+G2L["17"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["17"]["Text"] = [[Text]];
+G2L["17"]["Name"] = [[warntext]];
+
+
 -- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.UIDrag
-G2L["11"] = Instance.new("LocalScript", G2L["2"]);
-G2L["11"]["Name"] = [[UIDrag]];
+G2L["18"] = Instance.new("LocalScript", G2L["2"]);
+G2L["18"]["Name"] = [[UIDrag]];
 
 
+-- Require G2L wrapper
+local G2L_REQUIRE = require;
+local G2L_MODULES = {};
+local function require(Module:ModuleScript)
+    local ModuleState = G2L_MODULES[Module];
+    if ModuleState then
+        if not ModuleState.Required then
+            ModuleState.Required = true;
+            ModuleState.Value = ModuleState.Closure();
+        end
+        return ModuleState.Value;
+    end;
+    return G2L_REQUIRE(Module);
+end
+
+G2L_MODULES[G2L["12"]] = {
+Closure = function()
+    local script = G2L["12"];local assets = script.Parent.Assets
+local warnf = assets.warning
+local warnt = warnf.warntext
+local gui = script.Parent.Parent.Parent.Parent
+local defaultText = warnt.Text
+
+return function(text)
+	if warnf.Visible == true then
+		warnt.Text = text
+	end
+	if type(text) ~= "string" then
+		print("Inputed text needs to be a string, not an integer, float, double, etc. Only a string.")
+		return "error", false
+	end
+	warnt.Text = text
+	warnf.Parent = gui
+	warnf.Visible = true
+	wait(5)
+	warnf.Visible = false
+	warnf.Parent = assets
+	warnt.Text = defaultText
+	return "success", true
+end
+end;
+};
 -- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.Frame.Main
 local function C_f()
 local script = G2L["f"];
 	local gfound = false
-	
-	if workspace:FindFirstChild("Ghost") then
-		gfound = true
-	end
-	
-	if gfound == false then
-		game.Players.LocalPlayer:Kick("Ghost Not found.")
-	end
-	
-	local ghtype = workspace.Ghost:GetAttribute("GhostType")
-	local ghroom = workspace.Ghost:GetAttribute("FavoriteRoom")
-	
+	local w = require(script.Parent.Modules.warnmodule)
 	local fr = script.Parent
 	
 	local cls = fr.Close
@@ -182,6 +266,9 @@ local script = G2L["f"];
 	local gtype = fr.GType
 	local groom = fr.GRoom
 	
+	if workspace:FindFirstChild("Ghost") then
+		gfound = true
+	end
 	cls.MouseButton1Click:Connect(function() 
 		if workspace:FindFirstChild("Part") then
 			if workspace.Part:FindFirstChild("Highlight") then
@@ -190,8 +277,45 @@ local script = G2L["f"];
 		end
 		fr.Parent.Parent:Destroy()
 	end)
+	if gfound == false then
+		local s, r = w("Ghost not found? Maybe in lobby.")
+		if s == "error" and r == false then
+			warn("There was an error while trying to warn you.")
+		else
+			print("Successfully warned player.")
+		end
+		return
+	end
+	local ghtenabled = false
+	-- WARNING CHANGING ghtenabled TO TRUE MAY BREAK THE SCRIPT OR STOP IT COMPLETELY, YOU HAVE BEEN WARNED
+	if ghtenabled == true then
+		ghtype = workspace.Ghost:GetAttribute("GhostType")
+	end
+	local ghroom = workspace.Ghost:GetAttribute("FavoriteRoom")
+	
+	if ghtype == nil or "" then
+		local s, r = w("Ghost type not found, Report to the owner. xxglicthedvoidxx discord.")
+		if s == "error" and r == false then
+			warn("There was an error while trying to warn you.")
+		else
+			print("Successfully warned player.")
+		end
+	end
+	if ghroom == nil or "" then
+		local s, r = w("Favorite room not found, Report to the owner. xxglicthedvoidxx discord.")
+		if s == "error" and r == false then
+			warn("There was an error while trying to warn you.")
+		else
+			print("Successfully warned player.")
+		end
+	end
+	
+	
+	
+	
 	
 	gesp.MouseButton1Click:Connect(function() 
+		w("Ghost esp enabled.")
 		local part = Instance.new("Part")
 		part.Parent = workspace
 		Instance.new("Highlight", part)
@@ -206,113 +330,116 @@ local script = G2L["f"];
 	groom.Text = "Ghost Room : "..ghroom
 	
 	local evidences = {}
-	
-	if ghtype == "Banshee" then
-		table.insert(evidences, "GhostOrb")
-		table.insert(evidences, "Handprints")
-		table.insert(evidences, "FreezingTemperatures")
+	local ghostlist = {
+		Banshee = {
+			"GhostOrb",
+			"Handprints",
+			"FreezingTemperatures"
+		},
+		Demon = {
+			"EMFLevel5",
+			"Handprints",
+			"FreezingTemperatures"
+		},
+		Entity = {
+			"SpiritBox",
+			"Handprints",
+			"LaserProjector"
+		},
+		Ghoul = {
+			"SpiritBox",
+			"GhostOrb",
+			"FreezingTemperatures"
+		},
+		Leviathan = {
+			"GhostWriting",
+			"Handprints",
+			"GhostOrb"
+		},
+		Nightmare = {
+			"EMFLevel5",
+			"SpiritBox",
+			"GhostOrb"
+		},
+		Oni = {
+			"LaserProjector",
+			"SpiritBox",
+			"FreezingTemperatures"
+		},
+		Phantom = {
+			"EMFLevel5",
+			"Handprints",
+			"GhostOrb",
+		},
+		Renevant = {
+			"GhostWriting",
+			"EMFLevel5",
+			"FreezingTemperatures"
+		},
+		Shadow = {
+			"EMFLevel5",
+			"GhostWriting",
+			"LaserProjector",
+		},
+		Skinwalker = {
+			"GhostWriting",
+			"SpiritBox",
+			"FreezingTemperatures"
+		},
+		Specter = {
+			"EMFLevel5",
+			"LaserProjector",
+			"FreezingTemperatures"
+		},
+		Spirit = {
+			"GhostWriting",
+			"Handprints",
+			"SpiritBox"
+		},
+		Umbra = {
+			"GhostOrb",
+			"Handprints",
+			"LaserProjector"
+		},
+		Wendigo = {
+			"GhostOrb",
+			"GhostWriting",
+			"LaserProjector"
+		},
+		Wraith = {
+			"EMFLevel5",
+			"SpiritBox",
+			"LaserProjector"
+		}
+	}
+	if ghtenabled == true then
+	for ii,vv in ghostlist do
+		if ii == ghtype then
+			for i,v in vv do
+				table.insert(evidences, v)
+			end
+		end
+	end
+	if #evidences == 0 then
+		w("No matching ghost type found.")
+	else
+		for i,v in evidences do
+			game:GetService("ReplicatedStorage").Events.EvidenceMarkedInJournal:FireServer(v)
+		end
+	end
 	end
 	
-	if ghtype == "Demon" then
-		table.insert(evidences, "EMFLevel5")
-		table.insert(evidences, "Handprints")
-		table.insert(evidences, "FreezingTemperatures")
-	end
 	
-	if ghtype == "Entity" then
-		table.insert(evidences, "SpiritBox")
-		table.insert(evidences, "Handprints")
-		table.insert(evidences, "LaserProjector")
-	end
 	
-	if ghtype == "Ghoul" then
-		table.insert(evidences, "SpiritBox")
-		table.insert(evidences, "GhostOrb")
-		table.insert(evidences, "FreezingTemperatures")
-	end
+	w("Unfortunately Demonology upgraded their anti-cheat so ghost type")
+	wait(5)
+	w("Isn't availabe right now but everything else works")
 	
-	if ghtype == "Leviathan" then
-		table.insert(evidences, "GhostWriting")
-		table.insert(evidences, "Handprints")
-		table.insert(evidences, "GhostOrb")
-	end
-	
-	if ghtype == "Nightmare" then
-		table.insert(evidences, "EMFLevel5")
-		table.insert(evidences, "SpiritBox")
-		table.insert(evidences, "GhostOrb")
-	end
-	
-	if ghtype == "Oni" then
-		table.insert(evidences, "LaserProjector")
-		table.insert(evidences, "SpiritBox")
-		table.insert(evidences, "FreezingTemperatures")
-	end
-	
-	if ghtype == "Phantom" then
-		table.insert(evidences, "EMFLevel5")
-		table.insert(evidences, "Handprints")
-		table.insert(evidences, "GhostOrb")
-	end
-	
-	if ghtype == "Revenant" then
-		table.insert(evidences, "GhostWriting")
-		table.insert(evidences, "EMFLevel5")
-		table.insert(evidences, "FreezingTemperatures")
-	end
-	
-	if ghtype == "Shadow" then
-		table.insert(evidences, "EMFLevel5")
-		table.insert(evidences, "GhostWriting")
-		table.insert(evidences, "LaserProjector")
-	end
-	
-	if ghtype == "Skinwalker" then
-		table.insert(evidences, "GhostWriting")
-		table.insert(evidences, "SpiritBox")
-		table.insert(evidences, "FreezingTemperatures")
-	end
-	
-	if ghtype == "Specter" then
-		table.insert(evidences, "EMFLevel5")
-		table.insert(evidences, "LaserProjector")
-		table.insert(evidences, "FreezingTemperatures")
-	end
-	
-	if ghtype == "Spirit" then
-		table.insert(evidences, "GhostWriting")
-		table.insert(evidences, "Handprints")
-		table.insert(evidences, "SpiritBox")
-	end
-	
-	if ghtype == "Umbra" then
-		table.insert(evidences, "GhostOrb")
-		table.insert(evidences, "Handprints")
-		table.insert(evidences, "LaserProjector")
-	end
-	
-	if ghtype == "Wendigo" then
-		table.insert(evidences, "GhostOrb")
-		table.insert(evidences, "GhostWriting")
-		table.insert(evidences, "LaserProjector")
-	end
-	
-	if ghtype == "Wraith" then
-		table.insert(evidences, "EMFLevel5")
-		table.insert(evidences, "SpiritBox")
-		table.insert(evidences, "LaserProjector")
-	end
-	
-	for i,v in evidences do
-		game:GetService("ReplicatedStorage").Events.EvidenceMarkedInJournal:FireServer(v)
-	end
-	
-	game:GetService("ReplicatedStorage").Events.EvidenceMarkedInJournal:FireServer(ghtype)
 end;
 task.spawn(C_f);
 -- StarterGui.habkdnsjmjsskxksxmksmkmkkxskskmxkmxksk.Frame.UIDrag
-local function C_11()
-local script = G2L["11"];
+local function C_18()
+local script = G2L["18"];
 	-- Made by Real_IceyDev (@lceyDex) --
 	-- Simple UI dragger (PC Only/Any device that has a mouse) --
 	
@@ -351,6 +478,6 @@ local script = G2L["11"];
 		end
 	end)
 end;
-task.spawn(C_11);
+task.spawn(C_18);
 
 return G2L["1"], require;
